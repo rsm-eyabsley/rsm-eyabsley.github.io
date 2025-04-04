@@ -1,0 +1,16 @@
+---
+title: "Website – MGTA 495 MKTG"
+image: "/images/Erin Headshot.JPG"
+about:
+  template: jolla
+  links:
+    - icon: envelope
+      href: mailto:erin.yabsley@rady.ucsd.edu
+    - icon: linkedin
+      href: https://www.linkedin.com/in/erin-yabsley-1a2570157/
+---
+
+
+This is a Quarto website.
+
+To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
