@@ -162,7 +162,7 @@ I create a barplot that shows the proportion of people who donated in the contro
 ```{python}
 donation_rates = data.groupby('treatment')['gave'].mean()
 
-plt.figure(figsize=(10, 6))
+plt.figure(figsize=(8, 6))
 sns.barplot(
     x=donation_rates.index, 
     y=donation_rates.values, 
@@ -339,7 +339,7 @@ This regression confirms that among people who already decided to donate, the am
 I make two plot: one for the treatment group and one for the control. Each plot shows a histogram of the donation amounts only among people who donated:
 
 ```{python}
-fig, axs = plt.subplots(1, 2, figsize=(12, 5), sharey=True)
+fig, axs = plt.subplots(1, 2, figsize=(8, 5), sharey=True)
 
 control_donated = data_donated[data_donated['treatment'] == 0]['amount']
 mean_control = control_donated.mean()
@@ -418,7 +418,7 @@ control_means = np.array(control_means)
 treatment_means = np.array(treatment_means)
 diffs = np.array(diffs)
 
-fig, axes = plt.subplots(3, 1, figsize=(10, 12), sharex=True)
+fig, axes = plt.subplots(3, 1, figsize=(8, 12), sharex=True)
 
 sns.histplot(control_means, bins=50, kde=True, color='skyblue', ax=axes[0])
 axes[0].set_title('Sampling Distribution of Control Group Means')
@@ -486,7 +486,7 @@ np.random.seed(42)
 sample_sizes = [50, 200, 500, 1000]
 n_iterations = 1000
 
-fig, axs = plt.subplots(2, 2, figsize=(14, 10))
+fig, axs = plt.subplots(2, 2, figsize=(8, 10))
 axs = axs.flatten()
 
 for i, n in enumerate(sample_sizes):
