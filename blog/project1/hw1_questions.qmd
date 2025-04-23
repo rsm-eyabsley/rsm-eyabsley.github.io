@@ -379,7 +379,7 @@ First, we compute the actual difference in the data:
 ```{python}
 p_control_data = data[data['control'] == 1]['gave'].mean()
 p_treatment_data = data[data['treatment'] == 1]['gave'].mean()
-diff_data = p_treatment - p_control
+diff_data = p_treatment_data - p_control_data
 
 print(f"Difference: {diff_data:.4f}")
 ```
