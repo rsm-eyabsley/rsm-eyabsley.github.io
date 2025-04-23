@@ -216,7 +216,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="data">Data</h2>
 <section id="description" class="level3">
 <h3 class="anchored" data-anchor-id="description">Description</h3>
-<div id="8b3dc9a7" class="cell" data-execution_count="1">
+<div id="51d09449" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> t</span>
@@ -621,7 +621,7 @@ Variable Definitions
 <h3 class="anchored" data-anchor-id="balance-test">Balance Test</h3>
 <p>As an ad hoc test of the randomization mechanism, I provide a series of tests that compare aspects of the treatment and control groups to assess whether they are statistically significantly different from one another.</p>
 <p>I create a function t_test_manual that breaks down the steps to compute a t-statistic:</p>
-<div id="c7ff7fa6" class="cell" data-execution_count="2">
+<div id="dadebc2a" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> t_test_manual(x_treat, x_control):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    mean_treat <span class="op">=</span> np.mean(x_treat)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    mean_control <span class="op">=</span> np.mean(x_control)</span>
@@ -642,7 +642,7 @@ Variable Definitions
 <span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> t_stat, p_value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>I define the variables that I want to test: the number of months since last donation (mrm2), the highest previous contribution (hpa), the number of prior donations (freq), and the number of years since initial donation (years). I test these variables at the 95% confidence level and run a linear regression on each of the variables and look at the estimated coefficient on the treatment variable:</p>
-<div id="bdf1f7ae" class="cell" data-execution_count="3">
+<div id="e3b57c9e" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>variables <span class="op">=</span> [<span class="st">'mrm2'</span>, <span class="st">'hpa'</span>, <span class="st">'freq'</span>, <span class="st">'years'</span>]</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> var <span class="kw">in</span> variables:</span>
@@ -681,7 +681,7 @@ Linear regression on years: coefficient for treatment = -0.0575, p-value = 0.270
 <h3 class="anchored" data-anchor-id="charitable-contribution-made">Charitable Contribution Made</h3>
 <p>First, I analyze whether matched donations lead to an increased response rate of making a donation.</p>
 <p>I create a barplot that shows the proportion of people who donated in the control group and the treatment group:</p>
-<div id="447545df" class="cell" data-execution_count="4">
+<div id="f172d615" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>donation_rates <span class="op">=</span> data.groupby(<span class="st">'treatment'</span>)[<span class="st">'gave'</span>].mean()</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
@@ -696,7 +696,7 @@ Linear regression on years: coefficient for treatment = -0.0575, p-value = 0.270
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>plt.ylim(<span class="dv">0</span>, <span class="fl">0.03</span>)</span>
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/var/folders/j9/vvtdz6r56zg0sw78kg9kfsk00000gn/T/ipykernel_85914/3552437027.py:4: FutureWarning: 
+<pre><code>/var/folders/j9/vvtdz6r56zg0sw78kg9kfsk00000gn/T/ipykernel_86922/3552437027.py:4: FutureWarning: 
 
 Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
 
@@ -711,7 +711,7 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
 </div>
 </div>
 <p>Next, I run a t-test between the treatment and control groups on the binary outcome of whether any charitable donation was made:</p>
-<div id="4e7fa059" class="cell" data-execution_count="5">
+<div id="ea6e7130" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>treat_group <span class="op">=</span> data[data[<span class="st">'treatment'</span>] <span class="op">==</span> <span class="dv">1</span>][<span class="st">'gave'</span>]</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>control_group <span class="op">=</span> data[data[<span class="st">'treatment'</span>] <span class="op">==</span> <span class="dv">0</span>][<span class="st">'gave'</span>]</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -722,7 +722,7 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
 </div>
 </div>
 <p>I then run a linear regression on whether any charitable donation was made with treatment as the explanatory variable:</p>
-<div id="904993f8" class="cell" data-execution_count="6">
+<div id="eeb343ff" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>linear_model <span class="op">=</span> smf.ols(<span class="st">'gave ~ treatment'</span>, data<span class="op">=</span>data).fit()</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(linear_model.summary2())</span>
@@ -735,7 +735,7 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
 ====================================================================
 Model:              OLS              Adj. R-squared:     0.000      
 Dependent Variable: gave             AIC:                -53255.4470
-Date:               2025-04-23 10:24 BIC:                -53237.8041
+Date:               2025-04-23 10:28 BIC:                -53237.8041
 No. Observations:   50083            Log-Likelihood:     26630.     
 Df Model:           1                F-statistic:        9.618      
 Df Residuals:       50081            Prob (F-statistic): 0.00193    
@@ -765,7 +765,7 @@ t: 3.1014, p-value: 0.0019</code></pre>
 <p>Even a small match taps into social proof and reciprocity, which are powerful motivators for charitable giving. The presence of a matching gift offer can create a sense of urgency and social pressure to contribute, leading to increased donations. This aligns with the concept of social norms, where individuals are influenced by the behavior of others in their social group. The matching gift offer serves as a signal that others are also contributing, which can motivate individuals to join in and support the cause.</p>
 <p>Donation behavior are not purely altruistic - if it was, we might expect people to give regardless of match framing. Instead, people are motivated by cues about effectiveness and urgency, suggesting many give in part for “warm glow” satisfaction - the emotional reward of feeling generous and impactful.</p>
 <p>I now run a probit regression where the outcome variable is whether any charitable donation was made and the explanatory variable is assignment to treatment or control:</p>
-<div id="58f8bb9f" class="cell" data-execution_count="7">
+<div id="1d305238" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>probit_model <span class="op">=</span> smf.probit(<span class="st">'gave ~ treatment'</span>, data<span class="op">=</span>data).fit()</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(probit_model.summary())</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -781,7 +781,7 @@ Dep. Variable:                   gave   No. Observations:                50083
 Model:                         Probit   Df Residuals:                    50081
 Method:                           MLE   Df Model:                            1
 Date:                Wed, 23 Apr 2025   Pseudo R-squ.:               0.0009783
-Time:                        10:24:49   Log-Likelihood:                -5030.5
+Time:                        10:28:29   Log-Likelihood:                -5030.5
 converged:                       True   LL-Null:                       -5035.4
 Covariance Type:            nonrobust   LLR p-value:                  0.001696
 ==============================================================================
@@ -809,7 +809,7 @@ treatment      0.0043      0.001      3.104      0.002       0.002       0.007
 <h3 class="anchored" data-anchor-id="differences-between-match-rates">Differences between Match Rates</h3>
 <p>Next, I assess the effectiveness of different sizes of matched donations on the response rate.</p>
 <p>I conduct a series of t-tests to test whether the size of the match ratio has an effect on whether people donate or not:</p>
-<div id="aeaddd56" class="cell" data-execution_count="8">
+<div id="c07a8f6d" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>ratios <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>pairwise_results <span class="op">=</span> {}</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -836,7 +836,7 @@ treatment      0.0043      0.001      3.104      0.002       0.002       0.007
 <p>This demonstrates that higher match ratios, such as 3:1 compared to 1:1, do <strong>not</strong> lead to a statistically significantly greater increase in donor participation. A basic 1:1 match performs almost as well, making it a more cost-effective option. This indicates that nonprofits can generate comparable donor response using lower match ratios, which may help maximize the impact of their fundraising resources.</p>
 <p>From the paper, the author makes the comment: “the figures suggest that neither the match threshold nor the example amount had a meaningful influence on behavior.” The results of the t-test reinforce this comment as the different match ratios do not have a significant effect on the donation.</p>
 <p>I approach the same problem using a regression approach. I create the variable <code>ratio1</code> then regress <code>gave</code> on <code>ratio1</code>, <code>ratio2</code>, and <code>ratio3</code>:</p>
-<div id="5a99d228" class="cell" data-execution_count="9">
+<div id="2d1c7302" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'ratio1'</span>] <span class="op">=</span> (data[<span class="st">'ratio'</span>] <span class="op">==</span> <span class="dv">1</span>).astype(<span class="bu">int</span>)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>regression_model <span class="op">=</span> smf.ols(<span class="st">'gave ~ ratio1 + ratio2 + ratio3'</span>, data<span class="op">=</span>data).fit()</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(regression_model.summary2().tables[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -850,7 +850,7 @@ ratio3     0.004875  0.001740   2.801602  5.086912e-03  0.001464  0.008286</code
 </div>
 <p>I interpret the coefficients and their statistical precision: the intercept (1.79%) is the baseline donation rate for the control group. The ratio1 (1:1) adds +0.29% to that (total ≈ 2.68%), but the result is significant at a 90% confidence level (p-value ≈ 0.096). ratio2 (2:1) and ratio3 (3:1) both raise donation rates by 0.48 and 0.49% respectively to 2.66 and 2.68% and are statistically significant at the 1% level (with p-values of 0.0061 and 0.0051 respectively).</p>
 <p>I calculate the response rate difference between the 1:1 and 2:1 match ratios and the 2:1 and 3:1 ratios. I do this directly from the data:</p>
-<div id="e0ca49d5" class="cell" data-execution_count="10">
+<div id="ec60d275" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>response_rates <span class="op">=</span> data.groupby(<span class="st">'ratio'</span>, observed<span class="op">=</span><span class="va">False</span>)[<span class="st">'gave'</span>].mean()</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>coef_ratio2 <span class="op">=</span> regression_model.params[<span class="st">'ratio2'</span>]</span>
@@ -877,7 +877,7 @@ Difference (3:1 - 2:1): 0.0001</code></pre>
 </div>
 <p>The difference from the raw data between the 1:1 match and the 2:1 match is <strong>0.0019</strong> and the difference from the raw data between the 1:1 match and the 3:1 match is <strong>0.0001</strong>.</p>
 <p>I now calculate the response rate difference between the 1:1 and 2:1 match ratios and the 2:1 and 3:1 ratios with the fitted coefficients from the regression:</p>
-<div id="3fb8e77f" class="cell" data-execution_count="11">
+<div id="ca60b2fe" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>pred_1to1 <span class="op">=</span> intercept</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>pred_2to1 <span class="op">=</span> intercept <span class="op">+</span> coef_ratio2</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>pred_3to1 <span class="op">=</span> intercept <span class="op">+</span> coef_ratio3</span>
@@ -908,7 +908,7 @@ Difference (3:1 - 2:1): 0.0001</code></pre>
 <h3 class="anchored" data-anchor-id="size-of-charitable-contribution">Size of Charitable Contribution</h3>
 <p>In this subsection, I analyze the effect of the size of matched donation on the size of the charitable contribution.</p>
 <p>I run a bivariate linear regression of the donation amount on the treatment status:</p>
-<div id="df8d1d9c" class="cell" data-execution_count="12">
+<div id="a3da9f36" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>reg_all <span class="op">=</span> smf.ols(<span class="st">"amount ~ treatment"</span>, data<span class="op">=</span>data).fit()</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Regression on all participants (includes non-donors):"</span>)</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(reg_all.summary())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -920,7 +920,7 @@ Dep. Variable:                 amount   R-squared:                       0.000
 Model:                            OLS   Adj. R-squared:                  0.000
 Method:                 Least Squares   F-statistic:                     3.461
 Date:                Wed, 23 Apr 2025   Prob (F-statistic):             0.0628
-Time:                        10:24:50   Log-Likelihood:            -1.7946e+05
+Time:                        10:28:30   Log-Likelihood:            -1.7946e+05
 No. Observations:               50083   AIC:                         3.589e+05
 Df Residuals:                   50081   BIC:                         3.589e+05
 Df Model:                           1                                         
@@ -943,7 +943,7 @@ Notes:
 </div>
 <p>People in the control group gave $0.81 on average (including non-donors). Being in the treatment group increases the average donation by $0.15, a 19% increase, but this is only significant at a 10% significance level (p ≈ 0.06). Most people didn’t donate, making the average low because the dataset includes a lot of zeros.</p>
 <p>Now I limit the data to just people who made a donation and repeat the previous analysis. This regression allows me to analyze how much respondents donate conditional on donating some positive amount:</p>
-<div id="42ae9c4e" class="cell" data-execution_count="13">
+<div id="80166ad6" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>data_donated <span class="op">=</span> data[data[<span class="st">'gave'</span>] <span class="op">==</span> <span class="dv">1</span>]</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>reg_conditional <span class="op">=</span> smf.ols(<span class="st">"amount ~ treatment"</span>, data<span class="op">=</span>data_donated).fit()</span>
@@ -958,7 +958,7 @@ Dep. Variable:                 amount   R-squared:                       0.000
 Model:                            OLS   Adj. R-squared:                 -0.001
 Method:                 Least Squares   F-statistic:                    0.3374
 Date:                Wed, 23 Apr 2025   Prob (F-statistic):              0.561
-Time:                        10:24:50   Log-Likelihood:                -5326.8
+Time:                        10:28:30   Log-Likelihood:                -5326.8
 No. Observations:                1034   AIC:                         1.066e+04
 Df Residuals:                    1032   BIC:                         1.067e+04
 Df Model:                           1                                         
@@ -983,7 +983,7 @@ Notes:
 <p>Donors who received the matching grant treatment gave $1.67 less than control donors. This difference is not statistically significant (p = 0.561).</p>
 <p>This regression confirms that among people who already decided to donate, the amount they gave did not increase with a match incentive. This confirms the statement in the paper that reads “The match increases participation, but does not significantly affect the donation amount conditional on giving.” The treatment coefficient has a causal interpretation about the effect on donors since this regression is conditional on giving. Donors were randomly assigned to treatment (match) or control (no match) and random assignment ensures that treatment is independent of unobserved confounders. So the coefficient on treatment estimates the causal effect of being offered a match.</p>
 <p>I make two plot: one for the treatment group and one for the control. Each plot shows a histogram of the donation amounts only among people who donated:</p>
-<div id="656f0b6c" class="cell" data-execution_count="14">
+<div id="9042e4d9" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">5</span>), sharey<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>control_donated <span class="op">=</span> data_donated[data_donated[<span class="st">'treatment'</span>] <span class="op">==</span> <span class="dv">0</span>][<span class="st">'amount'</span>]</span>
@@ -1022,7 +1022,7 @@ Notes:
 <p>Suppose the true distribution of respondents who do not get a charitable donation match is Bernoulli with probability p=0.018 that a donation is made.</p>
 <p>Further suppose that the true distribution of respondents who do get a charitable donation match of any size is Bernoulli with probability p=0.022 that a donation is made.</p>
 <p>First, we compute the actual difference in the data:</p>
-<div id="7f7e8491" class="cell" data-execution_count="15">
+<div id="c65a56c2" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>p_control_data <span class="op">=</span> data[data[<span class="st">'control'</span>] <span class="op">==</span> <span class="dv">1</span>][<span class="st">'gave'</span>].mean()</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>p_treatment_data <span class="op">=</span> data[data[<span class="st">'treatment'</span>] <span class="op">==</span> <span class="dv">1</span>][<span class="st">'gave'</span>].mean()</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>diff_data <span class="op">=</span> p_treatment_data <span class="op">-</span> p_control_data</span>
@@ -1036,7 +1036,7 @@ Notes:
 <section id="law-of-large-numbers" class="level3">
 <h3 class="anchored" data-anchor-id="law-of-large-numbers">Law of Large Numbers</h3>
 <p>I now simulate 10,000 draws from the control distribution and 10,000 draws from the treatment distribution. I then calculate a vector of 10,000 differences. I present a histogram for the sampling distributions for the treatment group, the control group, and the difference between the two groups:</p>
-<div id="fba40c9d" class="cell" data-execution_count="16">
+<div id="0f509616" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>p_control <span class="op">=</span> <span class="fl">0.018</span></span>
@@ -1090,7 +1090,7 @@ Notes:
 </div>
 </div>
 <p>I plot the cumulative average of the vector of differences:</p>
-<div id="06c189ff" class="cell" data-execution_count="17">
+<div id="036b2ee4" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>n_control <span class="op">=</span> <span class="dv">10000</span></span>
@@ -1130,7 +1130,7 @@ Notes:
 <section id="central-limit-theorem" class="level3">
 <h3 class="anchored" data-anchor-id="central-limit-theorem">Central Limit Theorem</h3>
 <p>In this section of the analysis, I generated sampling distributions of the difference in donation rates between treatment and control groups by repeatedly drawing samples of different sizes (50, 200, 500, and 1000) and calculating the average difference in donation rates for each draw. I plot the histograms of the distributions:</p>
-<div id="8ff7192d" class="cell" data-execution_count="18">
+<div id="601b0612" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>sample_sizes <span class="op">=</span> [<span class="dv">50</span>, <span class="dv">200</span>, <span class="dv">500</span>, <span class="dv">1000</span>]</span>
