@@ -29,17 +29,13 @@ import seaborn as sns
 import statsmodels.api as sm
 
 data = pd.read_stata('karlan_list_2007.dta')
-data.info()
-
 print(data.head(5))
 
 print("Data shape:", data.shape)
-print(data.describe(include='all'))
-
-
 ```
 
 The dataset has 50,083 observations and 51 columns. The fields included in the dataset assign individuals to either control or treatment, the specifications for the treatment group, donation history of an individual, as well as some socioeconomic & political & demographic data about the individual. The variables and their descriptions are outlined below:
+
 
 :::: {.callout-note collapse="true"}
 ### Variable Definitions
@@ -100,6 +96,22 @@ The dataset has 50,083 observations and 51 columns. The fields included in the d
 
 ::::
 
+I define a function to print results from regressions in a readable format.
+:::: {.callout-note collapse="true"}
+```{python}
+def print_clean_regression_results(model, variable_names=None):
+    results = model.params.to_frame('Coefficient')
+    results['Std. Error'] = model.bse
+    results['t'] = model.tvalues
+    results['p-value'] = model.pvalues
+    results = results.round(4)
+
+    if variable_names:
+        results.index = [variable_names.get(var, var) for var in results.index]
+
+    print(results)
+```
+::::
 
 ### Balance Test 
 
@@ -139,13 +151,10 @@ for var in variables:
 
     t_stat, p_val = t_test_manual(treat_vals, control_vals)
 
-    print(f"T-test for {var}: t-statistic = {t_stat:.4f}, p-value = {p_val:.4f}")
+    print(f"T-test for {var}: t-statistic = {t_stat:.4f}, p-value = {p_val:.4f}\n")
     model = smf.ols(f"{var} ~ treatment", data=data).fit()
-    coef = model.params['treatment']
-    p_val = model.pvalues['treatment']
-    print(f"Linear regression on {var}: coefficient for treatment = {coef:.4f}, p-value = {p_val:.4f}")
+    print_clean_regression_results(model, variable_names={'Intercept': 'Intercept', 'treatment': 'Treatment'})
     print()
-
 ```
 
 At the 95% confidence level, none of the baseline variables differ significantly between the treatment and control groups as all of the p-values associated with the variables are larger than 0.05. This supports random assignment - it shows that baseline characteristics are balanced between the treatment and control groups. As a result, we can conclude that any observed differences in charitable giving outcomes are due to the treatment and not pre-existing group differences.
@@ -166,7 +175,7 @@ plt.figure(figsize=(8, 6))
 sns.barplot(
     x=donation_rates.index, 
     y=donation_rates.values, 
-    palette=['skyblue', 'salmon']  # Customize colors here
+    palette=['skyblue', 'salmon']
 )
 plt.xticks([0, 1], ['Control', 'Treatment'])
 plt.ylabel('Proportion Donated')
@@ -190,8 +199,7 @@ I then run a linear regression on whether any charitable donation was made with 
 
 ```{python}
 linear_model = smf.ols('gave ~ treatment', data=data).fit()
-
-print(linear_model.summary2())
+print_clean_regression_results(linear_model, variable_names={'Intercept': 'Intercept', 'treatment': 'Treatment'})
 
 treatment_summary = linear_model.summary2().tables[1].loc['treatment']
 
@@ -210,7 +218,7 @@ I now run a probit regression where the outcome variable is whether any charitab
 
 ```{python}
 probit_model = smf.probit('gave ~ treatment', data=data).fit()
-print(probit_model.summary())
+print_clean_regression_results(probit_model, variable_names={'Intercept': 'Intercept', 'treatment': 'Treatment'})
 
 marginal_effects = probit_model.get_margeff()
 print(marginal_effects.summary())
@@ -257,7 +265,12 @@ I approach the same problem using a regression approach. I create the variable `
 ```{python}
 data['ratio1'] = (data['ratio'] == 1).astype(int)
 regression_model = smf.ols('gave ~ ratio1 + ratio2 + ratio3', data=data).fit()
-print(regression_model.summary2().tables[1])
+print_clean_regression_results(regression_model, variable_names={
+    'Intercept': 'Intercept',
+    'ratio1': 'Match 1:1',
+    'ratio2': 'Match 2:1',
+    'ratio3': 'Match 3:1'
+})
 ```
 
 I interpret the coefficients and their statistical precision: the intercept (1.79%) is the baseline donation rate for the control group. The ratio1 (1:1) adds +0.29% to that (total ≈ 2.68%), but the result is significant at a 90% confidence level (p-value ≈ 0.096). ratio2 (2:1) and ratio3 (3:1) both raise donation rates by 0.48 and 0.49% respectively to 2.66 and 2.68% and are statistically significant at the 1% level (with p-values of 0.0061 and 0.0051 respectively).
@@ -315,7 +328,7 @@ I run a bivariate linear regression of the donation amount on the treatment stat
 ```{python}
 reg_all = smf.ols("amount ~ treatment", data=data).fit()
 print("Regression on all participants (includes non-donors):")
-print(reg_all.summary())
+print_clean_regression_results(reg_all, variable_names={'Intercept': 'Intercept', 'treatment': 'Treatment'})
 ```
 
 People in the control group gave $0.81 on average (including non-donors). Being in the treatment group increases the average donation by $0.15, a 19% increase, but this is only significant at a 10% significance level (p ≈ 0.06). Most people didn’t donate, making the average low because the dataset includes a lot of zeros.
@@ -324,10 +337,9 @@ Now I limit the data to just people who made a donation and repeat the previous 
 
 ```{python}
 data_donated = data[data['gave'] == 1]
-
 reg_conditional = smf.ols("amount ~ treatment", data=data_donated).fit()
 print("\nRegression on donors only (conditional on giving):")
-print(reg_conditional.summary())
+print_clean_regression_results(reg_conditional, variable_names={'Intercept': 'Intercept', 'treatment': 'Treatment'})
 ```
 
 The average donation among donors that gave is $45.54 in the control group. This is the intercept of the regression and is statistically significant at a 1% significance level given its p-value is ~0. 
