@@ -465,7 +465,7 @@ differences = treatment_draws - control_draws
 
 cumulative_avg = np.cumsum(differences) / np.arange(1, len(differences) + 1)
 
-plt.figure(figsize=(10, 5))
+plt.figure(figsize=(8, 5))
 plt.plot(cumulative_avg, label='Cumulative Average of Differences', color='slateblue')
 plt.axhline(y=p_treatment - p_control, color='red', linestyle='--', label=f"True Difference = {p_treatment - p_control:.4f}")
 plt.title("Cumulative Average of Differences in Donation Rates")
