@@ -96,8 +96,8 @@ The dataset has 50,083 observations and 51 columns. The fields included in the d
 
 ::::
 
-I define a function to print results from regressions in a readable format.
-:::: {.callout-note collapse="true"}
+I define a function to print results from regressions in a readable format:
+
 ```{python}
 def print_clean_regression_results(model, variable_names=None):
     results = model.params.to_frame('Coefficient')
@@ -111,7 +111,6 @@ def print_clean_regression_results(model, variable_names=None):
 
     print(results)
 ```
-::::
 
 ### Balance Test 
 
