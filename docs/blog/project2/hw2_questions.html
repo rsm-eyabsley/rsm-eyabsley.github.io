@@ -273,7 +273,7 @@ window.Quarto = {
 <section id="data" class="level3">
 <h3 class="anchored" data-anchor-id="data">Data</h3>
 <p>We read in the dataset for Blueprinty and view the first 5 rows of data to understand what our data contains:</p>
-<div id="ec0ff717" class="cell" data-execution_count="1">
+<div id="8fd143dc" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> t</span>
@@ -350,7 +350,7 @@ window.Quarto = {
 </div>
 </div>
 <p>We build compute the mean of number of patents by customer status (i.e., customers and non-customers):</p>
-<div id="60ab3ad4" class="cell" data-execution_count="2">
+<div id="5d235b0b" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>blueprinty_data[<span class="st">'iscustomer'</span>] <span class="op">=</span> blueprinty_data[<span class="st">'iscustomer'</span>].astype(<span class="st">'category'</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>mean_patents <span class="op">=</span> blueprinty_data.groupby(<span class="st">'iscustomer'</span>, observed<span class="op">=</span><span class="va">True</span>)[<span class="st">'patents'</span>].mean()</span>
@@ -366,7 +366,7 @@ Name: patents, dtype: float64</code></pre>
 </div>
 <p>The average number of patents for non-customers is 3.473013 while the average number of patents for customers is 4.133056.</p>
 <p>Next, we build and compare histograms for non-customers and customers:</p>
-<div id="d62d4f30" class="cell" data-execution_count="3">
+<div id="210f9cdf" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="dv">8</span>), sharex<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>sns.histplot(</span>
@@ -410,7 +410,7 @@ Name: patents, dtype: float64</code></pre>
 <p>The histograms reveal that both customers and non-customers exhibit right-skewed distributions in the number of patents, with most firms having relatively few patents and fewer firms achieving higher counts. Customers tend to cluster more heavily around the 0 to 4 patent range. Both customers and non-customers have long tails, indicating that while most firms have few patents, there are a small number of firms with a very high number of patents. The distribution for non-customers is slightly more concentrated around the lower patent counts compared to customers, suggesting that blueprinty could be effective in generating achieving patents.</p>
 <p>Customers tend to have a higher number of patents than non-customers (as seen by a higher mean: 4.13 for customers and 3.47 for non-customers), with a noticeable increase in the 5 to 10 patent range, with customers having higher density in this range.</p>
 <p>Blueprinty customers are not selected at random. It may be important to account for systematic differences in the age and regional location of customers vs non-customers.</p>
-<div id="12cd7a6e" class="cell" data-execution_count="4">
+<div id="055d27f6" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>blueprinty_data[<span class="st">'region'</span>] <span class="op">=</span> blueprinty_data[<span class="st">'region'</span>].astype(<span class="st">'category'</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>region_counts <span class="op">=</span> blueprinty_data.groupby(<span class="st">'iscustomer'</span>, observed<span class="op">=</span><span class="va">True</span>)[<span class="st">'region'</span>].value_counts(normalize<span class="op">=</span><span class="va">True</span>).unstack()</span>
@@ -487,7 +487,7 @@ Customer       481.0  26.900208  7.814678  10.0  20.5  26.5  32.50  49.0
 L(\lambda \mid Y_1, Y_2, \dots, Y_n) = \prod_{i=1}^n \frac{e^{-\lambda} \lambda^{Y_i}}{Y_i!} = \frac{e^{-n\lambda} \lambda^{\sum_{i=1}^n Y_i}}{\prod_{i=1}^n Y_i!}
 \]</span></p>
 <p>Next, we code the log-likelihood function for the Poisson model as a function of lambda and Y:</p>
-<div id="37b80f0a" class="cell" data-execution_count="5">
+<div id="776b68b1" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> poisson_loglikelihood(lambda_, Y):</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    Y <span class="op">=</span> np.array(Y)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    </span>
@@ -500,7 +500,7 @@ L(\lambda \mid Y_1, Y_2, \dots, Y_n) = \prod_{i=1}^n \frac{e^{-\lambda} \lambda^
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> log_likelihood</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We use the poisson_loglikelihood function that we programmed above to plot lambda on the horizontal axis and the likelihood (or log-likelihood) on the vertical axis for a range of lambdas:</p>
-<div id="667532de" class="cell" data-execution_count="6">
+<div id="dcfabd0c" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>Y_observed <span class="op">=</span> blueprinty_data[<span class="st">'patents'</span>].values</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>lambda_values <span class="op">=</span> np.linspace(<span class="fl">0.1</span>, <span class="dv">15</span>, <span class="dv">300</span>)</span>
@@ -523,7 +523,7 @@ L(\lambda \mid Y_1, Y_2, \dots, Y_n) = \prod_{i=1}^n \frac{e^{-\lambda} \lambda^
 </div>
 </div>
 <p>We compute:</p>
-<div id="116e62a8" class="cell" data-execution_count="7">
+<div id="c8dca14d" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>lambda_mle <span class="op">=</span> blueprinty_data[<span class="st">'patents'</span>].mean()</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"MLE for λ (lambda): </span><span class="sc">{</span>lambda_mle<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -549,7 +549,7 @@ L(\lambda \mid Y_1, Y_2, \dots, Y_n) = \prod_{i=1}^n \frac{e^{-\lambda} \lambda^
 \hat{\lambda}_{\text{MLE}} = \bar{Y}
 \]</span></p>
 <p>We find the MLE by optimizing your likelihood function using optimize() in Python:</p>
-<div id="dc2fd53a" class="cell" data-execution_count="8">
+<div id="00a6996e" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>Y_observed <span class="op">=</span> blueprinty_data[<span class="st">'patents'</span>].values</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> neg_poisson_loglikelihood(lambda_):</span>
@@ -571,7 +571,7 @@ L(\lambda \mid Y_1, Y_2, \dots, Y_n) = \prod_{i=1}^n \frac{e^{-\lambda} \lambda^
 <h3 class="anchored" data-anchor-id="estimation-of-poisson-regression-model">Estimation of Poisson Regression Model</h3>
 <p>Next, we extend our simple Poisson model to a Poisson Regression Model such that <span class="math inline">\(Y_i = \text{Poisson}(\lambda_i)\)</span> where <span class="math inline">\(\lambda_i = \exp(X_i'\beta)\)</span>. The interpretation is that the success rate of patent awards is not constant across all firms (<span class="math inline">\(\lambda\)</span>) but rather is a function of firm characteristics <span class="math inline">\(X_i\)</span>. Specifically, we will use the covariates age, age squared, region, and whether the firm is a customer of Blueprinty.</p>
 <p>We update your likelihood or log-likelihood function with an additional argument to take in a covariate matrix X. Also change the parameter of the model from lambda to the beta vector:</p>
-<div id="811ecded" class="cell" data-execution_count="9">
+<div id="96016091" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> poisson_loglikelihood(beta, y, X):</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    beta <span class="op">=</span> np.asarray(beta)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> np.asarray(y)</span>
@@ -586,7 +586,7 @@ L(\lambda \mid Y_1, Y_2, \dots, Y_n) = \prod_{i=1}^n \frac{e^{-\lambda} \lambda^
 <span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span>poisson_loglikelihood(beta, y, X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Next, we use the function we just programmed along with Python’s sp.optimize() to find the MLE vector and the Hessian of the Poisson model with covariates:</p>
-<div id="27901afe" class="cell" data-execution_count="10">
+<div id="2aacf9b3" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>blueprinty_data[<span class="st">'age_squared'</span>] <span class="op">=</span> blueprinty_data[<span class="st">'age'</span>].astype(<span class="bu">float</span>) <span class="op">**</span> <span class="dv">2</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>region_dummies <span class="op">=</span> pd.get_dummies(blueprinty_data[<span class="st">'region'</span>], prefix<span class="op">=</span><span class="st">'region'</span>, drop_first<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -656,7 +656,7 @@ region_Southwest  0.050573    0.047196</code></pre>
 </div>
 </div>
 <p>Next, we check our results using Python sm.GLM() function:</p>
-<div id="01295aec" class="cell" data-execution_count="11">
+<div id="88a904ec" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>blueprinty_data[<span class="st">'age_squared'</span>] <span class="op">=</span> blueprinty_data[<span class="st">'age'</span>] <span class="op">**</span> <span class="dv">2</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>glm_model <span class="op">=</span> smf.glm(</span>
@@ -704,7 +704,7 @@ age_squared              0.0000  </code></pre>
 <p>This means that firms using Blueprinty software receive ~23.4% more patents.</p>
 <p>The analysis is observational. Without running an experiment to collect data, the results show <strong>association, not causation</strong>.</p>
 <p>The intercept term has a coefficient of -0.5098 (standard error: 0.1815), which represents the baseline log count of patents when all predictors are zero, although it is not directly interpretable in isolation. Firm age shows a positive and statistically significant effect on patent output, with a coefficient of 0.1487 (standard error: 0.0137), indicating that older firms tend to receive more patents. However, this effect diminishes with age, as evidenced by the negative and significant coefficient on age squared (-0.0030, standard error: 0.0003), suggesting a nonlinear relationship where the benefit of age tapers off. Most notably, firms that are customers of Blueprinty software have a coefficient of 0.2076 (standard error: 0.0309), which is statistically significant and implies that, holding other factors constant, these firms receive approximately 23.4% more patents than non-customers. While regional dummy variables are included in the model, their coefficients are mixed in sign and not statistically significant, indicating that region does not have a meaningful impact on patent counts.</p>
-<div id="c14f331f" class="cell" data-execution_count="12">
+<div id="846bf4cd" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>X_0 <span class="op">=</span> X.copy()</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>X_1 <span class="op">=</span> X.copy()</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>X_0[<span class="st">'iscustomer'</span>] <span class="op">=</span> <span class="dv">0</span></span>
@@ -760,7 +760,7 @@ Variable Definitions
 </div>
 </div>
 <p>We perform some EDA on the dataset. The goal is to uncover patterns, trends, and relationships across numeric and categorical features, particularly focusing on review counts, pricing, and listing characteristics. :</p>
-<div id="d4205f81" class="cell" data-execution_count="13">
+<div id="f9950a25" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>airbnb_data <span class="op">=</span> pd.read_csv(<span class="st">'airbnb.csv'</span>)</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>variables <span class="op">=</span> [</span>
@@ -922,7 +922,7 @@ Frequency Counts for instant_bookable:
 </ul></li>
 <li><strong>Number of reviews</strong> has <strong>very weak correlations</strong> with all features (e.g., r = -0.01 with price), indicating it may be influenced by unobserved factors like visibility, listing age, or marketing.</li>
 </ul>
-<div id="d280a308" class="cell" data-execution_count="14">
+<div id="6148a2e0" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>airbnb_clean <span class="op">=</span> airbnb_data[numeric_vars <span class="op">+</span> categorical_vars].dropna()</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="dv">10</span>))</span>
@@ -1019,7 +1019,7 @@ Frequency Counts for instant_bookable:
 <li>May reflect host caution or preferences rather than guest demand.</li>
 </ul>
 <p>We build multiple models for the number of bookings as proxied by the number of reviews:</p>
-<div id="d6b05468" class="cell" data-execution_count="15">
+<div id="bce070fc" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>airbnb_data <span class="op">=</span> pd.read_csv(<span class="st">'airbnb.csv'</span>)</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>airbnb_data[<span class="st">'instant_bookable'</span>] <span class="op">=</span> airbnb_data[<span class="st">'instant_bookable'</span>].<span class="bu">map</span>({<span class="st">'f'</span>: <span class="dv">0</span>, <span class="st">'t'</span>: <span class="dv">1</span>})</span>
