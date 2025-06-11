@@ -8,10 +8,6 @@ The following page presents my work for parts 1a and 2a.
 
 ## 1a. K-Means
 
-_todo: write your own code to implement the k-means algorithm.  Make plots of the various steps the algorithm takes so you can "see" the algorithm working.  Test your algorithm on the Palmer Penguins dataset, specifically using the bill length and flipper length variables.  Compare your results to the built-in `kmeans` function in R or Python._
-
-_todo: Calculate both the within-cluster-sum-of-squares and silhouette scores (you can use built-in functions to do so) and plot the results for various numbers of clusters (ie, K=2,3,...,7). What is the "right" number of clusters as suggested by these two metrics?_
-
 ```{python}
 import numpy as np
 import pandas as pd
