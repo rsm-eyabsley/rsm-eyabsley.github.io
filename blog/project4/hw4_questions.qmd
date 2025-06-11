@@ -114,16 +114,13 @@ for k in k_values:
     else:
         silhouette_list.append(np.nan)
 
-# Set up vertical subplots (2 rows, 1 column)
 fig, ax = plt.subplots(2, 1, figsize=(8, 10))
 
-# WCSS Plot
 ax[0].plot(k_values, wcss_list, marker='o')
 ax[0].set_title('Within Clusters Sum of Squares (WCSS)')
 ax[0].set_xlabel('Number of Clusters')
 ax[0].set_ylabel('WCSS')
 
-# Silhouette Score Plot
 ax[1].plot(k_values, silhouette_list, marker='o', color='orange')
 ax[1].set_title('Silhouette Scores')
 ax[1].set_xlabel('Number of Clusters')
